@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import Window from './components/Window.js';
 
 class App extends Component {
   constructor(){
@@ -33,9 +34,14 @@ class App extends Component {
     axios.post('http://localhost:3005/login', config)
     .then((config)=> config)
     .catch((err)=> err);
+    this.setState({
+      logged: true
+    })
   }
   
   render() {
+
+    if(!this.state.logged){
     return (
       <div className="App">
         <div className="App-header">
@@ -51,8 +57,9 @@ class App extends Component {
           <input onChange={(e)=> {this.passwordInput(e.target.value)}}></input>
         </div>
         <button onClick={()=> this.submit()}>Submit</button>
+
       </div>
-    );
+    );} else return <Window />
   }
 }
 
